@@ -45,10 +45,10 @@ public class UserNumberBean implements Serializable {
             HttpSession session
                     = (HttpSession) context.getExternalContext().getSession(false);
             session.invalidate();
-            return "Yay! You got it!";
+            return "Oba! Você conseguiu!";
         } else {
-            return "<p>Sorry, " + userNumber + " isn't it.</p>"
-                    + "<p>Guess again...</p>";
+            return "<p>Desculpe, " + userNumber + " não é o número.</p>"
+                    + "<p>Tente de novo...</p>";
         }
 
     }
