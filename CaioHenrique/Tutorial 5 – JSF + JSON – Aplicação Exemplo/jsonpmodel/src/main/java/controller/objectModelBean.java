@@ -14,7 +14,6 @@ import java.util.logging.*;
 import javax.json.*;
 import javax.json.stream.JsonGenerator;
 
-
 /**
  *
  * @author BSICoord
@@ -23,164 +22,140 @@ import javax.json.stream.JsonGenerator;
 @SessionScoped
 public class objectModelBean implements Serializable {
 
-   /* JSON model information */
+    /* JSON model information */
     protected String documentJson;
     protected String documentJsonFormatted;
     List<DOMTreeRow> rowList;
-    
+
     /* Form properties */
-    protected static final String PHONE_TYPE_HOME = "Home";
-    protected static final String PHONE_TYPE_MOBILE = "Mobile";
-    protected String firstName = "Duke";
-    protected String lastName = "Java";
-    protected int age = 18;
-    protected String streetAddress = "100 Internet Dr";
-    protected String city = "JavaTown";
-    protected String state = "JA";
-    protected String postalCode = "12345";
-    protected String phoneNumber1 = "111-111-1111";
-    protected String phoneType1 = PHONE_TYPE_MOBILE;
-    protected String phoneNumber2 = "222-222-2222";
-    protected String phoneType2 = PHONE_TYPE_HOME;
+    private String name = "Duke Book";
+    private String author = "Duke Sr.";
+    private String coAuthor = "Duke Jr.";
+    private String isbn = "10-202-303-5";
+    private int year = 2014;
+    private String category = "Duku Duke";
+    private float price = (float) 20.5;
     protected String jsonTextArea = "";
-    
+
     static final Logger log = Logger.getLogger("ObjectModelBean");
-    
-    public objectModelBean() {}
-    
+
+    public objectModelBean() {
+    }
+
     /* Getters and setters */
-    public String getPhoneTypeHome() {
-        return PHONE_TYPE_HOME;
+    public String getName() {
+        return name;
     }
-    public String getPhoneTypeMobile() {
-        return PHONE_TYPE_MOBILE;
+
+    public void setName(String name) {
+        this.name = name;
     }
-    public String getFirstName() {
-        return firstName;
+
+    public String getAuthor() {
+        return author;
     }
-    public void setFirstName(String firtName) {
-        this.firstName = firtName;
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
-    public String getLastName() {
-        return lastName;
+
+    public String getCoAuthor() {
+        return coAuthor;
     }
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+
+    public void setCoAuthor(String coAuthor) {
+        this.coAuthor = coAuthor;
     }
-    public int getAge() {
-        return age;
+
+    public String getIsbn() {
+        return isbn;
     }
-    public void setAge(int age) {
-        this.age = age;
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
-    public String getStreetAddress() {
-        return streetAddress;
+
+    public int getYear() {
+        return year;
     }
-    public void setStreetAddress(String streetAddress) {
-        this.streetAddress = streetAddress;
+
+    public void setYear(int year) {
+        this.year = year;
     }
-    public String getCity() {
-        return city;
+
+    public String getCategory() {
+        return category;
     }
-    public void setCity(String city) {
-        this.city = city;
+
+    public void setCategory(String category) {
+        this.category = category;
     }
-    public String getState() {
-        return state;
+
+    public float getPrice() {
+        return price;
     }
-    public void setState(String state) {
-        this.state = state;
+
+    public void setPrice(float price) {
+        this.price = price;
     }
-    public String getPostalCode() {
-        return postalCode;
-    }
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
-    public String getPhoneNumber1() {
-        return phoneNumber1;
-    }
-    public void setPhoneNumber1(String phoneNumber1) {
-        this.phoneNumber1 = phoneNumber1;
-    }
-    public String getPhoneType1() {
-        return phoneType1;
-    }
-    public void setPhoneType1(String phoneType1) {
-        this.phoneType1 = phoneType1;
-    }
-    public String getPhoneNumber2() {
-        return phoneNumber2;
-    }
-    public void setPhoneNumber2(String phoneNumber2) {
-        this.phoneNumber2 = phoneNumber2;
-    }
-    public String getPhoneType2() {
-        return phoneType2;
-    }
-    public void setPhoneType2(String phoneType2) {
-        this.phoneType2 = phoneType2;
-    }
+
     public String getJsonTextArea() {
         return jsonTextArea;
     }
+
     public void setJsonTextArea(String jsonTextArea) {
         this.jsonTextArea = jsonTextArea;
     }
+
     public String getDocumentJson() {
         return documentJson;
     }
+
     public String getDocumentJsonFormatted() {
         return documentJsonFormatted;
     }
+
     public List<DOMTreeRow> getRowList() {
         return rowList;
     }
-    
+
     /* Action method for the form in index.xhtml.
      * Builds a JSON object model from form data. */
-    public String buildJson() {        
+    public String buildJson() {
         /* Build JSON Object Model */
         JsonObject model = Json.createObjectBuilder()
-            .add("firstName", firstName)
-            .add("lastName", lastName)
-            .add("age", age)
-            .add("streetAddress", streetAddress)
-            .add("city", city)
-            .add("state", state)
-            .add("postalCode", postalCode)
-            .add("phoneNumbers", Json.createArrayBuilder()
-                .add(Json.createObjectBuilder()
-                    .add("number", phoneNumber1)
-                    .add("type", phoneType1))
-                .add(Json.createObjectBuilder()
-                    .add("number", phoneNumber2)
-                    .add("type", phoneType2)))
-        .build();
-        
+                .add("name", name)
+                .add("author", author)
+                .add("coAuthor", coAuthor)
+                .add("isbn", isbn)
+                .add("year", year)
+                .add("category", category)
+                .add("price", price)
+                .build();
+
         /* Write JSON Output */
         StringWriter stWriter = new StringWriter();
         try (JsonWriter jsonWriter = Json.createWriter(stWriter)) {
             jsonWriter.writeObject(model);
         }
         documentJson = stWriter.toString();
-        
+
         /* Write formatted JSON Output */
-        Map<String,String> config = new HashMap<>();
+        Map<String, String> config = new HashMap<>();
         config.put(JsonGenerator.PRETTY_PRINTING, "");
         JsonWriterFactory factory = Json.createWriterFactory(config);
-        
+
         StringWriter stWriterF = new StringWriter();
         try (JsonWriter jsonWriterF = factory.createWriter(stWriterF)) {
             jsonWriterF.writeObject(model);
         }
         documentJsonFormatted = stWriterF.toString();
         jsonTextArea = documentJsonFormatted;
-        
+
         /* JSF navigation */
         return "modelcreated";
     }
-    
+
     /* Action method for form in modelcreated.xhtml.
      * Parses JSON data from the textarea. */
     public String parseJson() {
@@ -193,11 +168,11 @@ public class objectModelBean implements Serializable {
         /* Represent the DOM tree on a list for a JSF table */
         rowList = new ArrayList<>();
         this.printTree(parsed, 0, "");
-        
+
         /* JSF navigation */
         return "parsejson";
     }
-    
+
     /* Used to populate rowList to display the DOM tree on a JSF table */
     public void printTree(JsonValue tree, int level, String key) {
         switch (tree.getValueType()) {
@@ -205,14 +180,14 @@ public class objectModelBean implements Serializable {
                 JsonObject object = (JsonObject) tree;
                 rowList.add(new DOMTreeRow(level, tree.getValueType().toString(), key, "--"));
                 for (String name : object.keySet()) {
-                   this.printTree(object.get(name), level+1, name);
+                    this.printTree(object.get(name), level + 1, name);
                 }
                 break;
             case ARRAY:
                 JsonArray array = (JsonArray) tree;
                 rowList.add(new DOMTreeRow(level, tree.getValueType().toString(), key, "--"));
                 for (JsonValue val : array) {
-                    this.printTree(val, level+1, "");
+                    this.printTree(val, level + 1, "");
                 }
                 break;
             case STRING:
@@ -231,25 +206,36 @@ public class objectModelBean implements Serializable {
                 break;
         }
     }
-    
+
     /* Used for showing the JSON DOM tree as rows in a JSF table */
     public class DOMTreeRow {
+
         private int level;
         private String type;
         private String name;
         private String value;
-        
+
         public DOMTreeRow(int level, String type, String name, String value) {
             this.level = level;
             this.type = type;
             this.name = name;
             this.value = value;
         }
-        
-        public int getLevel() { return level; }
-        public String getType() { return type; }
-        public String getName() { return name; }
-        public String getValue() { return value; }
+
+        public int getLevel() {
+            return level;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getValue() {
+            return value;
+        }
     }
 }
-
