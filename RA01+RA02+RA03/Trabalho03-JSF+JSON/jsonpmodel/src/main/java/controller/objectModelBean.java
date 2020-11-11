@@ -28,18 +28,26 @@ public class objectModelBean implements Serializable {
     List<DOMTreeRow> rowList;
 
     /* Form properties */
-    private String name = "Duke Book";
-    private String author = "Duke Sr.";
-    private String coAuthor = "Duke Jr.";
-    private String isbn = "10-202-303-5";
-    private int year = 2014;
-    private String category = "Duku Duke";
-    private float price = (float) 20.5;
-    protected String jsonTextArea = "";
+    private String name;
+    private String author;
+    private String coAuthor;
+    private String isbn;
+    private int year;
+    private String category;
+    private float price;
+    protected String jsonTextArea;
 
     static final Logger log = Logger.getLogger("ObjectModelBean");
 
     public objectModelBean() {
+        this.name = "Duke Book";
+        this.author = "Duke Sr.";
+        this.coAuthor = "Duke Jr.";
+        this.isbn = "10-202-303-5";
+        this.year = 2014;
+        this.category = "Duku Duke";
+        this.price = (float) 20.5;
+        this.jsonTextArea = "";
     }
 
     /* Getters and setters */
